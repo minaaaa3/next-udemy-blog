@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import Image from "next/image";
+import { getOwnPost } from "@/lib/ownPost";
+import { auth } from "@/auth";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -11,10 +13,19 @@ import "highlight.js/styles/github.css"; // コードハイライト用のスタ
 type Params = {
   params: Promise<{ id: string }>;
 };
-export default async function PostPage({ params }: Params) {
+
+export default async function ShowPage({ params }: Params) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!session?.user?.email || !userId) {
+    throw new Error("不正なリクエストです");
+  }
   const { id } = await params;
   // console.log(params);
-  const post = await getPost(id);
+  const post = await getOwnPost(userId, id);
+  if (!post) {
+    notFound();
+  }
   // console.log("記事内容:", post);
   // console.log(post);
 

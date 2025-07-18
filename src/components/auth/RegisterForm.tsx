@@ -11,6 +11,7 @@ export default function RegisterForm() {
     success: false,
     errors: {},
   });
+
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
