@@ -15,7 +15,7 @@ type DeletePostPrpps = {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
 };
-export default function deletePostDialog({
+export default function DeletePostDialog({
   postId,
   isOpen,
   onOpenChange,
