@@ -16,6 +16,9 @@ export async function authenticate(
     redirect("/dashboard");
   } catch (error) {
     if (error instanceof AuthError) {
+      console.log("---------");
+      console.log(error);
+      console.log("---------");
       switch (error.type) {
         case "CredentialsSignin":
           return "メールアドレスまたはパスワードが正しくありません。";
@@ -23,7 +26,7 @@ export async function authenticate(
           return "エラーが発生しました。";
       }
     }
-    console.log("---------");
+
     throw error;
   }
 }
