@@ -25,6 +25,7 @@ export async function createPost(
       errors: validationResult.error.flatten().fieldErrors,
     };
   }
+
   const imageUrl = topImage ? await saveImage(topImage) : null;
   if (topImage && !imageUrl) {
     return { success: false, errors: { image: ["画像の保存に失敗しました"] } };
@@ -34,6 +35,9 @@ export async function createPost(
   if (!session?.user?.email || !userId) {
     throw new Error("不正なリクエストです");
   }
+  console.log("------------");
+  console.log(userId);
+  console.log("------------");
   await prisma.post.create({
     data: {
       title,

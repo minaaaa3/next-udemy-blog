@@ -28,11 +28,8 @@ export async function saveImageToLocal(file: File): Promise<string | null> {
 }
 async function saveImageToSupabase(file: File): Promise<string | null> {
   const fileName = `${Date.now()}_${file.name}`;
-  console.log("----------");
-  console.log("来てる");
-  console.log("==========");
   const { error } = await supabase.storage
-    .from("udemy-next-blog-bucket")
+    .from("udemy-next-blog-backet")
     .upload(fileName, file, {
       cacheControl: "3600",
       upsert: false,
@@ -42,7 +39,7 @@ async function saveImageToSupabase(file: File): Promise<string | null> {
     return null;
   }
   const { data: publicUrlData } = supabase.storage
-    .from("udemy-next-blog-bucket")
+    .from("udemy-next-blog-backet")
     .getPublicUrl(fileName);
   return publicUrlData.publicUrl;
 }
