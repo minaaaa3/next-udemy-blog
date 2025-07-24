@@ -23,6 +23,7 @@ export async function authenticate(
           return "エラーが発生しました。";
       }
     }
+    console.log("---------");
     throw error;
   }
 }
