@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:build": "prisma generate && prisma migrate deploy"
+    "prisma:build": "prisma migrate deploy"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
