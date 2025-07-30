@@ -8,15 +8,20 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
+import { CommentForm } from "@/components/comment/CommentForm";
+import { auth } from "@/auth";
+import { CommentList } from "@/components/comment/CommentList";
 type Params = {
-  params: Promise<{ id: string }>;
+  params: {
+    id: string;
+  };
 };
+
 export default async function PostPage({ params }: Params) {
   const { id } = await params;
-  // console.log(params);
   const post = await getPost(id);
-  // console.log("記事内容:", post);
-  // console.log(post);
+  const session = await auth();
+  const userId = session?.user?.id;
 
   if (!post) {
     notFound();
@@ -37,9 +42,9 @@ export default async function PostPage({ params }: Params) {
             />
           </div>
         )}
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold">{post.title}</CardTitle>
-        </CardHeader>
+
+        <CardTitle className="text-3xl font-bold">{post.title}</CardTitle>
+
         <div className="flex justify-between items-center mb-4 px-6">
           <p className="text-sm text-gray-500">投稿者:{post.author.name}</p>
           <time className="text-sm text-gray-500">
@@ -59,6 +64,8 @@ export default async function PostPage({ params }: Params) {
           </div>
         </CardContent>
       </Card>
+      <CommentList postId={id} />
+      {userId && post.id && <CommentForm postId={post.id} />}
     </div>
   );
 }

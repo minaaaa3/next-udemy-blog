@@ -35,9 +35,9 @@ export async function createPost(
   if (!session?.user?.email || !userId) {
     throw new Error("不正なリクエストです");
   }
-  console.log("------------");
-  console.log(userId);
-  console.log("------------");
+  // console.log("------------");
+  // console.log(userId);
+  // console.log("------------");
   await prisma.post.create({
     data: {
       title,

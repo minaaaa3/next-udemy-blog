@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { updatePost } from "@/lib/actions/updatePost";
 import * as React from "react";
-import { create } from "domain";
 import Image from "next/image";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
@@ -160,6 +159,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         >
           更新する
         </Button>
+
         <input type="hidden" name="postId" value={post.id} />
         <input type="hidden" name="oldImageUrl" value={post.topImage || ""} />
       </form>
